@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'cgpacalculator.dart'; 
+import 'splash.dart';
 
 void main() {
   runApp(const MainApp());
@@ -10,10 +11,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Panimalar App',
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home:  SplashScreen(),
+      routes: {
+        '/main': (context) =>  HomeScreen(),
+      },
     );
   }
 }
@@ -49,17 +53,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Stack(
                   children: [
                     Align(
-                      alignment: Alignment.centerLeft,
+                      alignment: Alignment.bottomLeft,
                       child: Image.asset(
                         'images/inner-logo.png',
-                        height: 120,
-                        fit: BoxFit.contain,
+                        height: 115,
+                        fit: BoxFit.cover,
                       ),
                     ),
                     Align(
                       alignment: Alignment.centerRight,
                       child: PopupMenuButton<int>(
-                        icon: const Icon(Icons.more_vert, color: Colors.white),
+                        icon: const Icon(Icons.menu, color: Colors.white, size: 40),
+                        padding: const EdgeInsets.only(top: 20, right: 10),
                         itemBuilder: (context) => const [
                           PopupMenuItem(value: 1, child: Text("About Us")),
                           PopupMenuItem(value: 2, child: Text("Help")),
@@ -150,7 +155,7 @@ class _EventsCarouselState extends State<EventsCarousel> {
         return Transform.scale(
           scale: scale,
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -204,5 +209,3 @@ final List<String> logoUrls = [
   "images/logo-6.png",
   "images/logo-7.png",
 ];
-
-

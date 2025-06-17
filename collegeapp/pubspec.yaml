@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  video_player: ^2.10.0
 
 dev_dependencies:
   flutter_test:
@@ -17,10 +18,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-
   assets:
-
     - images/inner-logo.png
     - images/logo-1.png
     - images/logo-2.png
@@ -29,5 +27,11 @@ flutter:
     - images/logo-5.png
     - images/logo-6.png
     - images/logo-7.png 
+    - splashvid/pec.mp4
+
+flutter_native_splash:
+  android: true
+  ios: true    
+
 
 
