@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       alignment: Alignment.bottomLeft,
                       child: Image.asset(
                         'images/inner-logo.png',
-                        height: 115,
+                        height: 100,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       alignment: Alignment.centerRight,
                       child: PopupMenuButton<int>(
                         icon: const Icon(Icons.menu, color: Colors.white, size: 40),
-                        padding: const EdgeInsets.only(top: 20, right: 10),
+                        padding: const EdgeInsets.only(top: 20, right: 20),
                         itemBuilder: (context) => const [
                           PopupMenuItem(value: 1, child: Text("About Us")),
                           PopupMenuItem(value: 2, child: Text("Help")),
@@ -155,7 +155,7 @@ class _EventsCarouselState extends State<EventsCarousel> {
         return Transform.scale(
           scale: scale,
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),

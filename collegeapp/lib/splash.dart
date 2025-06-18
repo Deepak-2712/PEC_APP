@@ -1,55 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'main.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
-
+class SplashScreen extends StatefulWidget{
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
+  SplashScreenState createState() => SplashScreenState();
+    
+} //class
 
-class _SplashScreenState extends State<SplashScreen> {
-  late VideoPlayerController _controller;
+class SplashScreenState extends State<SplashScreen>{
+  late VideoPlayerController controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('splashvid/pec.mp4')
-      ..initialize().then((_) {
-        if (!mounted) return;
+    controller= VideoPlayerController.asset('splashvid/pec.mp4')..initialize().then((_){
+      controller.play();
 
-        setState(() {});
-        _controller.play();
-        Future.delayed(_controller.value.duration, () {
-          if (mounted) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) =>  HomeScreen()),
-            );
+        controller.addListener((){
+          if(controller.value.position== controller.value.duration){
+            Navigator.pushReplacementNamed(context, '/main');
           }
-        });
-      });
-  }
+           setState(() {
+
+            }); //listener
+        }
+        );
+      }); //setstate
+    } //controller
 
   @override
   void dispose() {
-    _controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 
-  @override
+@override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: _controller.value.isInitialized
-          ? Center(
-              child: AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              ),
-            )
-          : const Center(child: CircularProgressIndicator()),
+    return Scaffold( body:controller.value.isInitialized? Center(
+        child: Transform.scale(
+          scale: controller.value.aspectRatio/0.44,
+          child: AspectRatio(aspectRatio: controller.value.aspectRatio,
+           child: VideoPlayer(controller),),
+        ),
+        ): Center(child: CircularProgressIndicator() //if_false
+    )
     );
   }
-}
+} //cls_state
