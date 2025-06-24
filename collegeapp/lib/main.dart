@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'cgpacalculator.dart'; 
+import 'package:url_launcher/url_launcher.dart';
+import 'cgpacalculator.dart';
 import 'splash.dart';
 
 void main() {
@@ -14,9 +15,9 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: 'Panimalar App',
       debugShowCheckedModeBanner: false,
-      home:  SplashScreen(),
+      home: SplashScreen(),
       routes: {
-        '/main': (context) =>  HomeScreen(),
+        '/main': (context) => const HomeScreen(),
       },
     );
   }
@@ -35,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> screens = [
     const EventsScreen(),
     const ScheduleScreen(),
-    const CGPACalculatorScreen(), 
+    const CGPACalculatorScreen(),
     const CourseScreen(),
   ];
 
@@ -45,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: isCGPACalc
-          ? null 
+          ? null
           : PreferredSize(
               preferredSize: const Size.fromHeight(100),
               child: Container(
@@ -75,15 +76,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-      body: Column(
-        children: [
-          if (!isCGPACalc) ...[
-            const SizedBox(height: 10),
-            const SizedBox(height: 150, child: EventsCarousel()),
-          ],
-          Expanded(child: screens[myIndex]),
-        ],
-      ),
+      body: isCGPACalc
+          ? screens[myIndex]
+          : CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: const SizedBox(height: 10),
+                ),
+                SliverToBoxAdapter(
+                  child: const SizedBox(height: 150, child: EventsCarousel()),
+                ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: screens[myIndex],
+                  ),
+                ),
+              ],
+            ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: myIndex,
         onTap: (index) => setState(() => myIndex = index),
@@ -92,23 +102,23 @@ class _HomeScreenState extends State<HomeScreen> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.event),
-            label: "Events",
-            backgroundColor: Color.fromARGB(255, 0, 61, 111),
+            label: "Home",
+            backgroundColor: Color.fromARGB(255, 1, 39, 70),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.schedule),
             label: "Schedule",
-            backgroundColor: Color.fromARGB(255, 222, 198, 11),
+            backgroundColor: Color.fromARGB(255, 244, 202, 17),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calculate),
             label: "CGPA Calculator",
-            backgroundColor: Color.fromARGB(255, 0, 61, 111),
+            backgroundColor: Color.fromARGB(255, 1, 39, 70),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
             label: "Course",
-            backgroundColor: Color.fromARGB(255, 222, 198, 11),
+            backgroundColor: Color.fromARGB(255, 244, 202, 17),
           ),
         ],
       ),
@@ -184,8 +194,102 @@ class _EventsCarouselState extends State<EventsCarousel> {
 
 class EventsScreen extends StatelessWidget {
   const EventsScreen({super.key});
+
+  final List<Map<String, String>> links = const [
+    {
+      "title": "Placements",
+      "url": "https://panimalar.ac.in/placement.php",
+      "image": "images/image-placement.png"
+    },
+    {
+      "title": "Infrastructure",
+      "url": "https://panimalar.ac.in/infrastructures.php",
+      "image": "images/image-infra.png"
+    },
+    {
+      "title": "Hostel",
+      "url": "https://panimalar.ac.in/hostel.php",
+      "image": "images/image-hostel.png"
+    },
+    {
+      "title": "Library",
+      "url": "https://panimalar.ac.in/library.php",
+      "image": "images/image-lib.png"
+    },
+    {
+      "title": "Transport",
+      "url": "https://panimalar.ac.in/transport.php",
+      "image": "images/image-bus.png"
+    },
+    {
+      "title": "Mess",
+      "url": "https://panimalar.ac.in/mess.php",
+      "image": "images/image-mess.png"
+    },
+     {
+      "title": "Sports",
+      "url": "https://panimalar.ac.in/sports.php",
+      "image": "images/image-sports.png"
+    },
+  ];
+
+  Future<void> _launchUrl(BuildContext context, String url) async {
+    final Uri uri = Uri.parse(url);
+    try {
+      if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+        throw 'Cannot open';
+      }
+    } catch (_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Could not open $url")),
+      );
+    }
+  }
+
   @override
-  Widget build(BuildContext context) => const Center(child: Text("Events Screen"));
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        children: links.map((item) {
+          return Card(
+            elevation: 4,
+            margin: const EdgeInsets.symmetric(vertical: 30),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                  child: SizedBox(
+                    height: 200,
+                    child: Center(
+                      child: Image.asset(
+                        item["image"]!,
+                        height: 135,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+
+                  height: 4,
+                  color: Colors.black,
+                  margin: EdgeInsets.symmetric(horizontal: 0),
+                ),
+                ListTile(
+                  title: Text(item["title"]!, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  trailing: const Icon(Icons.open_in_new, color: Colors.blue),
+                  onTap: () => _launchUrl(context, item["url"]!),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
 }
 
 class ScheduleScreen extends StatelessWidget {

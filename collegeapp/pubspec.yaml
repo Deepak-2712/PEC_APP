@@ -10,6 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
   video_player: ^2.10.0
+  url_launcher: ^6.2.5
+
 
 dev_dependencies:
   flutter_test:
@@ -28,6 +30,13 @@ flutter:
     - images/logo-6.png
     - images/logo-7.png 
     - splashvid/pec.mp4
+    - images/image-bus.png
+    - images/image-hostel.png
+    - images/image-lib.png
+    - images/image-mess.png
+    - images/image-placement.png
+    - images/image-sports.png
+    - images/image-infra.png
 
 flutter_native_splash:
   android: true

@@ -68,7 +68,7 @@ class _CGPACalculatorScreenState extends State<CGPACalculatorScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFFDF0FF),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF012746),
+        backgroundColor:  Color.fromARGB(255, 1, 39, 70),
         title: const Text('CGPA Calculator', style: TextStyle(color: Colors.white)),
         iconTheme: const IconThemeData(color: Colors.white),
       ),
