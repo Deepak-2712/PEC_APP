@@ -37,6 +37,7 @@ flutter:
     - images/image-placement.png
     - images/image-sports.png
     - images/image-infra.png
+    - images/image-youtube.png
 
 flutter_native_splash:
   android: true

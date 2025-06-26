@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'cgpacalculator.dart';
 import 'splash.dart';
+import 'courses_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -37,17 +38,17 @@ class _HomeScreenState extends State<HomeScreen> {
     const EventsScreen(),
     const ScheduleScreen(),
     const CGPACalculatorScreen(),
-    const CourseScreen(),
+    const CoursesScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    bool isCGPACalc = myIndex == 2;
-
+    final bool isCGPACalc = myIndex == 2;  
+  final bool isCoursesTab = myIndex == 3;
+  final bool showHeader = !(isCGPACalc || isCoursesTab);
     return Scaffold(
-      appBar: isCGPACalc
-          ? null
-          : PreferredSize(
+      appBar: showHeader
+          ? PreferredSize(
               preferredSize: const Size.fromHeight(100),
               child: Container(
                 color: const Color.fromARGB(255, 1, 39, 70),
@@ -75,8 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-            ),
-      body: isCGPACalc
+            )
+            : null,
+      body: (isCGPACalc || isCoursesTab)
           ? screens[myIndex]
           : CustomScrollView(
               slivers: [
@@ -117,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book),
-            label: "Course",
+            label: "Courses",
             backgroundColor: Color.fromARGB(255, 244, 202, 17),
           ),
         ],
@@ -230,6 +232,11 @@ class EventsScreen extends StatelessWidget {
       "title": "Sports",
       "url": "https://panimalar.ac.in/sports.php",
       "image": "images/image-sports.png"
+    },
+    {
+      "title": "Youtube",
+      "url": "https://www.youtube.com/@panimalargroupofinstitutio6593/videos",
+      "image": "images/image-youtube.png"
     },
   ];
 
