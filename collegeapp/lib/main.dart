@@ -273,7 +273,7 @@ class EventsScreen extends StatelessWidget {
                     child: Center(
                       child: Image.asset(
                         item["image"]!,
-                        height: 135,
+                        height: 130,
                         fit: BoxFit.contain,
                       ),
                     ),

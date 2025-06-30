@@ -45,7 +45,51 @@ final List<Course> kCourses = [
     semester: 4,
     department: 'IT',
   ),
-  // … add more …
+   Course(
+    code: '23AD1405',
+    title: 'Foundation of Data Science',
+    description:
+        'Introduces essential data handling, visualization, and basic statistical analysis techniques.',
+    credits: 3,
+    semester: 4,
+    department: 'CSE',
+  ),
+   Course(
+    code: '23CS1401',
+    title: 'Computer Networks',
+    description:
+        'Covers the fundamentals of network architecture, protocols, and communication systems.',
+    credits: 2,
+    semester: 4,
+    department: 'CSE',
+  ),
+   Course(
+    code: '23CS1402',
+    title: 'Computational Thinking',
+    description:
+        'Teaches logical problem-solving using abstraction, pattern recognition, and algorithms.',
+    credits: 2,
+    semester: 4,
+    department: 'CSE',
+  ),
+   Course(
+    code: '23IT1401',
+    title: 'Object Oriented Software Engineering',
+    description:
+        'Focuses on designing software using object-oriented principles and development practices.',
+    credits: 3,
+    semester: 4,
+    department: 'IT',
+  ),
+   Course(
+    code: '23MA1401',
+    title: 'Probability and Statistical Method',
+    description:
+        'Provides foundational knowledge in probability theory and statistical data analysis.',
+    credits: 4,
+    semester: 4,
+    department: 'CSE',
+  ),
 ];
 
 class CoursesScreen extends StatefulWidget {
